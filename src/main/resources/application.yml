@@ -43,3 +43,24 @@ mybatis:
 server:
   tomcat:
     uri-encoding: utf-8
+
+logging:
+  level:
+    com.guangxing.cache.mapper: debug
+
+
+#debug: true
+#logging:
+#  level:
+#    #指定包，指定类，或者直接root
+#    #root: debug
+#    com.cobra.logdemo.controller: debug
+#  #日志输出配置二选一，只有两个都配置，只有一个生效，
+#  #区别是path默认生成的是spring.log文件，而path生成的是直接命名的文件，可以是相对路径也可以是绝对路径
+#  file: var/my.log
+#    #path: var/my.log
+#    #  pattern:
+#    #控制台日志输出格式配置，仅对控制台有效
+#  #console: "%d -%msg%n"
+
+
