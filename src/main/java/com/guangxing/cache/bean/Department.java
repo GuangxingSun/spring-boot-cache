@@ -1,10 +1,12 @@
 package com.guangxing.cache.bean;
 
+import java.io.Serializable;
+
 /**
  * @author apple
  * @create time 2020/4/29 10:48 上午
  **/
-public class Department {
+public class Department implements Serializable {
     private Integer id;
     private String departmentName;
 
