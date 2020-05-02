@@ -2,6 +2,12 @@ spring:
   redis:
     host: 127.0.0.1
     password: 123456
+  rabbitmq:
+    host: 127.0.0.1
+    username: guest
+    password: guest
+    virtual-host: /  #指定虚拟机
+    port: 5672
   http:
     encoding:
       force: true
