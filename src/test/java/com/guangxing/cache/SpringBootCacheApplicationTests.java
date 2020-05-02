@@ -4,12 +4,14 @@ import com.guangxing.cache.bean.Employee;
 import com.guangxing.cache.config.MyRedisConfig;
 import com.guangxing.cache.mapper.EmployeeMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 @SpringBootTest
@@ -26,6 +28,10 @@ class SpringBootCacheApplicationTests {
 
     @Autowired
     RedisTemplate<Object,Employee> empRedisTemplate;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
 
     /**
      * Redis常见五大数据类型
@@ -52,6 +58,36 @@ class SpringBootCacheApplicationTests {
         //（1）自己将对象转为json
         //（2）redisTemplate默认的序列化规则
         empRedisTemplate.opsForValue().set("emp-02",emp);
+    }
+
+    /**
+     * 测试消息队列 点对点
+     */
+    @Test
+    public void directTest(){
+        //Massage需要自己构造一个；定义消息体内容和消息头
+//        rabbitTemplate.send(exchange,routeKey,message);
+
+        //object默认只需要传入要发送的对象，自动序列化发送给rabbitmq
+//        rabbitTemplate.convertAndSend(exchange,routeKey,object);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("msg","这是第一个消息");
+        hashMap.put("data", Arrays.asList("hello word", 123, true));
+
+        //对象被默认序列化之后 发送出去
+        rabbitTemplate.convertAndSend("exchange.direct","guangxing.news",hashMap);
+
+    }
+
+    /**
+     * 测试接受消息
+     */
+    @Test
+    public void receive(){
+        Object o = rabbitTemplate.receiveAndConvert("guangxing.news");
+        System.out.println(o.getClass());
+        System.out.println(o);
+
     }
 
 
