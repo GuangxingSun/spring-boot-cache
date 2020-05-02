@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.EnableCaching;
 
 
 /**
+ *
+ * 缓存：
  * 一、搭建基本环境
  * 1、导入数据库文件
  * 2、创建javaBean封装对象
@@ -25,6 +27,16 @@ import org.springframework.cache.annotation.EnableCaching;
  *三、整合Redis作为缓存
  * Redis是一个开源的，内存中的数据存储系统，他可以用作数据库、缓存和消息中间件
  *
+ *
+ *
+ * RabbitMq
+ *   自动配置
+ *   1、RabbitAutoConfiguration
+ *   2、有自动配置了连接工厂ConnectionFactory
+ *   3、RabbitProperties 封装了RabbitMQ的配置
+ *   4、RabbitTemplate：给RabbitMQ发送和接受消息；
+ *   5、AmqpAdmin：RabbitMQ系统管理功能组件
+ *   6、
  */
 @SpringBootApplication
 @MapperScan(value = "com.guangxing.cache.mapper")
