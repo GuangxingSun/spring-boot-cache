@@ -2,6 +2,7 @@ package com.guangxing.cache.service;
 
 import com.guangxing.cache.bean.Department;
 import com.guangxing.cache.mapper.DepartmentMapper;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -37,6 +38,14 @@ public class DeptService {
         Cache cache = cacheManager.getCache("dept");
         cache.put("dept01",dept);
         return dept;
+    }
+
+    /**
+     * 监听rabbitMq消息
+     */
+    @RabbitListener(queues = "guangxing.news")
+    public void receive(Department department){
+        System.out.println(department);
     }
 
 }
