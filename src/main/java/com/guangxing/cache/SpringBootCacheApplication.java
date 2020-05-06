@@ -1,6 +1,7 @@
 package com.guangxing.cache;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -38,6 +39,7 @@ import org.springframework.cache.annotation.EnableCaching;
  *   5、AmqpAdmin：RabbitMQ系统管理功能组件
  *   6、
  */
+@EnableRabbit  //启动rabbitMQ
 @SpringBootApplication
 @MapperScan(value = "com.guangxing.cache.mapper")
 @EnableCaching
