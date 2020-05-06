@@ -1,5 +1,6 @@
 package com.guangxing.cache;
 
+import com.guangxing.cache.bean.Department;
 import com.guangxing.cache.bean.Employee;
 import com.guangxing.cache.config.MyRedisConfig;
 import com.guangxing.cache.mapper.EmployeeMapper;
@@ -89,6 +90,17 @@ class SpringBootCacheApplicationTests {
         System.out.println(o);
 
     }
+
+    /**
+     * 测试以对象形式发送消息
+     * 广播形式
+     */
+    @Test
+    public void fanOut(){
+        rabbitTemplate.convertAndSend("exchange.fanout","guangxing",new Department(10,"一号部门名称"));
+
+    }
+
 
 
     @Test
