@@ -2,9 +2,9 @@ package com.guangxing.cache;
 
 import com.guangxing.cache.bean.Department;
 import com.guangxing.cache.bean.Employee;
-import com.guangxing.cache.config.MyRedisConfig;
 import com.guangxing.cache.mapper.EmployeeMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +32,9 @@ class SpringBootCacheApplicationTests {
 
     @Autowired
     RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    AmqpAdmin amqpAdmin;
 
 
     /**
@@ -99,6 +102,22 @@ class SpringBootCacheApplicationTests {
     public void fanOut(){
         rabbitTemplate.convertAndSend("exchange.fanout","guangxing",new Department(10,"一号部门名称"));
 
+    }
+
+    @Test
+    public void createExchange(){
+        //创建exchange
+        //amqpAdmin.declareExchange(new DirectExchange("amqpadmin.exchange"));
+        //System.out.println("创建完成");
+
+        //创建queue
+        //amqpAdmin.declareQueue(new Queue("amqpadmin.queue",true));
+
+        //创建绑定规则
+        //amqpAdmin.declareBinding(new Binding("amqpadmin.queue", Binding.DestinationType.QUEUE, "amqpadmin.exchange", "amqpadmin.routingkey",null));
+
+        //删除队列
+        //amqpAdmin.declareQueue("amqpadmin.queue");
     }
 
 
