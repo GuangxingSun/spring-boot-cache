@@ -10,7 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -35,6 +40,37 @@ class SpringBootCacheApplicationTests {
 
     @Autowired
     AmqpAdmin amqpAdmin;
+
+    @Autowired
+    JavaMailSenderImpl javaMailSender;
+
+
+    @Test
+    public void contextLoad(){
+        //邮件设置
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setSubject("通知——今晚开会");
+        simpleMailMessage.setText("今晚7：30开会");
+        simpleMailMessage.setTo("sunguangxing@bdxc.com");
+        simpleMailMessage.setFrom("1042445773@qq.com");
+
+        javaMailSender.send(simpleMailMessage);
+
+    }
+
+    @Test
+    public void senMail() throws  Exception{
+        //1、创建复杂的邮件消息
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setSubject("通知——今晚开会");
+        mimeMessageHelper.setText("<b style='color:red'>今晚</b>7：30开会",true);
+        mimeMessageHelper.setTo("sunguangxing@bdxc.com");
+        mimeMessageHelper.setFrom("1042445773@qq.com");
+        mimeMessageHelper.addAttachment("1.xml", new File("/Users/apple/Documents/work/maven/apache-maven-3.6.3/README.txt"));
+
+        javaMailSender.send(mimeMessage);
+    }
 
 
     /**
